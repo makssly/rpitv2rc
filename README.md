@@ -27,7 +27,7 @@ Raspberry Pi 4 + Docker Compose
     curl -i -u "pi_client:121506e33ef593ac9cd" http://ip.addr.srv/media/manifest.json
 должна отдать список файлов с хэшами
 
-### Настройка малины
+### 2. Настройка малины
 1. Скачать архив с прошивкой https://drive.google.com/file/d/1f_P0lJFfm84YWR3wLBmTV2k3PRGuLNjO/view?usp=sharing
 2. Записать на карту памяти с помощью dd или Raspberry Pi Imager. 
     ```bash
