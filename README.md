@@ -1,30 +1,32 @@
-/boot/firmware/config.txt
-disable_overscan=1
-hdmi_enable_4kp60=1
-hdmi_group=1
-hdmi_mode=97
-hdmi_drive=2
-config_hdmi_boost=7
+# R-pi TV
 
-tty off
+Raspberry Pi 4 + Docker Compose
 
-sudo systemctl stop getty@tty1.service
-sudo systemctl disable getty@tty1.service
+## как работает
+* **Backend:** Nginx + File Browser (веб-интерфейс)
+* **Client (Pi):** cron-скрипт каждые 2 минуты проверяет SHA-256 файлов и синхронизирует кэш. Плеер `cvlc` крутит плейлист по кругу
 
-update
-sudo apt update && sudo apt install -y mpv jq curl
+---
 
-sudo usermod -aG video,render,input,tty pi
+## 1. Настройка сервера
 
-sudo mkdir -p /opt/signage/video
-sudo chown -R pi:pi /opt/signage
+### Что надо
+* Установленный Docker Compose (Linux)
 
-sudo nano /etc/systemd/system/signage-player.service
+### Пошаговый запуск
+1. Git clone репо
+2. Дать скрипту права на запуск
+   ```bash
+   chmod +x generate_manifest.sh
+3. Очистить ./data/media
+4. ```bash
+    docker compose up -d --build
+5. Интерфейс загрузки файлов тут http://<ip.addr.srv>:8002/admin
+6. Закинь тестовый mp4 и подожди минуту
+7. curl -i -u "pi_client:121506e33ef593ac9cd" http://ip.addr.srv/media/manifest.json
+    должна отдать список файлов с хэшами
 
-
-
-sudo systemctl daemon-reload
-sudo systemctl restart signage-player.service
-
-
-/opt/signage/sync.sh
+### Настройка малины
+1. Скачать архив с прошивкой
+2. Записать на карту памяти с помощью dd или Raspberry Pi Imager. 
+3. Все включить
