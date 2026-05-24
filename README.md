@@ -23,10 +23,11 @@ Raspberry Pi 4 + Docker Compose
     docker compose up -d --build
 5. Интерфейс загрузки файлов тут http://<ip.addr.srv>:8002/admin
 6. Закинь тестовый mp4 и подожди минуту
-7. curl -i -u "pi_client:121506e33ef593ac9cd" http://ip.addr.srv/media/manifest.json
+7. ```bash
+curl -i -u "pi_client:121506e33ef593ac9cd" http://ip.addr.srv/media/manifest.json
     должна отдать список файлов с хэшами
 
 ### Настройка малины
 1. Скачать архив с прошивкой
 2. Записать на карту памяти с помощью dd или Raspberry Pi Imager. 
-3. Все включить
+3. Всё включить
