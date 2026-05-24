@@ -37,6 +37,8 @@ Raspberry Pi 4 + Docker Compose
 ####
 Внутри установлен Zabbix Agent
 
+![grafana](iScreen Shoter - Firefox - 260524203843.jpg)
+
 
 ### TODO
 (пока) не воспроизводит 4К видео. 
