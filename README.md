@@ -36,8 +36,7 @@ Raspberry Pi 4 + Docker Compose
 
 ####
 Внутри установлен Zabbix Agent
-![grafana](grafana.jpg?raw=true)
-
+![grafana](https://github.com/makssly/rpitv2rc/blob/3e82b6a22ad6c97a715a17f32fd6f2cfd83e8685/grafana.jpg?raw=true)
 
 ### TODO
 (пока) не воспроизводит 4К видео. 
