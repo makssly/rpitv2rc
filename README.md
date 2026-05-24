@@ -30,7 +30,8 @@ Raspberry Pi 4 + Docker Compose
 ### Настройка малины
 1. Скачать архив с прошивкой https://drive.google.com/file/d/1f_P0lJFfm84YWR3wLBmTV2k3PRGuLNjO/view?usp=sharing
 2. Записать на карту памяти с помощью dd или Raspberry Pi Imager. 
-gunzip -c rpi4-tv-v1.img.gz | sudo dd of=/dev/diskX bs=4m
+    ```bash
+    gunzip -c rpi4-tv-v1.img.gz | sudo dd of=/dev/diskX bs=4m
 3. Всё включить. SSH username `pi`
 
 ####
