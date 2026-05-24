@@ -1,0 +1,36 @@
+[Unit]
+Description=Signage VLC Player
+After=graphical-session.target
+Wants=graphical-session.target
+
+[Service]
+User=pi
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/pi/.Xauthority
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+Environment=TERM=xterm
+
+ExecStartPre=/bin/sleep 1
+
+ExecStart=/usr/bin/cvlc \
+  --aout=alsa \
+  --alsa-audio-device=hdmi:CARD=vc4hdmi0,DEV=0 \
+  --fullscreen \
+  #--video-on-top \
+  --one-instance \
+  --no-video-title-show \
+  --no-osd \
+  #--no-embedded-video \
+  --no-video-deco \
+  --quiet \
+  --avcodec-hw=drm \
+  --loop \
+  /opt/signage/video
+
+Restart=always
+RestartSec=2
+KillMode=control-group
+TimeoutStopSec=5
+
+[Install]
+WantedBy=graphical-session.target
