@@ -4,7 +4,7 @@ Raspberry Pi 4 + Docker Compose
 
 ## как работает
 * **Backend:** Nginx + File Browser (веб-интерфейс)
-* **Client (Pi):** cron-скрипт каждые 2 минуты проверяет SHA-256 файлов и синхронизирует кэш. Плеер `cvlc` крутит плейлист по кругу
+* **Client:** cron-скрипт каждые 2 минуты проверяет SHA-256 файлов на сервере и синхронизирует кэш. Плеер `cvlc` крутит плейлист по кругу, воспроизведение локальное, отвал сервера телек не гасит. 
 
 ---
 
@@ -25,9 +25,17 @@ Raspberry Pi 4 + Docker Compose
 6. Закинь тестовый mp4 и подожди минуту
 7. ```bash 
     curl -i -u "pi_client:121506e33ef593ac9cd" http://ip.addr.srv/media/manifest.json
-    должна отдать список файлов с хэшами
+должна отдать список файлов с хэшами
 
 ### Настройка малины
-1. Скачать архив с прошивкой
+1. Скачать архив с прошивкой https://drive.google.com/file/d/1f_P0lJFfm84YWR3wLBmTV2k3PRGuLNjO/view?usp=sharing
 2. Записать на карту памяти с помощью dd или Raspberry Pi Imager. 
-3. Всё включить
+gunzip -c rpi4-tv-v1.img.gz | sudo dd of=/dev/diskX bs=4m
+3. Всё включить. SSH username `pi`
+
+####
+Внутри установлен Zabbix Agent
+
+
+### TODO
+(пока) не воспроизводит 4К видео. 
