@@ -3,4 +3,4 @@ init-hostname.sh
 notes
 *.py
 *.pyc
-
+signage-feeder.service
