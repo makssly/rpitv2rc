@@ -1,4 +1,6 @@
 init-hostname.sh
-data/media/*.mp4
-./data/media/*.mp4
-./data/media/
+*.mp4
+notes
+*.py
+*.pyc
+
