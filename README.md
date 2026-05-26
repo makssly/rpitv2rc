@@ -44,7 +44,7 @@ Raspberry Pi 4 + Docker Compose
 ![grafana](https://github.com/makssly/rpitv2rc/blob/main/grafana.jpg?raw=true)
 
 ### TODO
-- [x] (пока) не воспроизводит 4К видео
+- [x] ~~~(пока) не воспроизводит 4К видео~~~
 
 UPD. И не будет. 4К ведет себя крайне нестабильно и тормозит. Захардкодил принудительный даунскейл в 1080.
 - [ ] Нормальная админка
