@@ -4,3 +4,4 @@ notes
 *.py
 *.pyc
 signage-feeder.service
+signage-player.service
