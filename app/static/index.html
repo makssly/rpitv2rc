@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Manager</title>
+  <meta name="description" content="Simple and modern web file manager" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════ LOGIN SCREEN ═══════════════════════════ -->
+  <div id="login-screen" class="login-screen">
+    <div class="login-card">
+      <div class="login-logo"><h1>🎬</h1>
+        <!-- <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"> -->
+          <!-- <path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/> -->
+        </svg>
+      </div>
+      <h1 class="login-title">Video Manager</h1>
+      <p class="login-subtitle">Sign in to continue</p>
+      <form id="login-form" class="login-form" autocomplete="on">
+        <div class="field-group">
+          <label class="field-label" for="login-username">Username</label>
+          <input id="login-username" class="field-input" type="text" name="username"
+                 placeholder="username" autocomplete="username" required />
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="login-password">Password</label>
+          <input id="login-password" class="field-input" type="password" name="password"
+                 placeholder="••••••••" autocomplete="current-password" required />
+        </div>
+        <div id="login-error" class="login-error hidden">Invalid username or password</div>
+        <button id="login-btn" class="btn btn-primary btn-full" type="submit">Sign In</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ APP SHELL ═════════════════════════════ -->
+  <div id="app" class="app hidden">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <div class="header-logo">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+          </svg>
+          <span>Video Manager 🍿</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <span id="header-username" class="header-user"></span>
+        <button id="admin-btn" class="btn btn-ghost btn-sm hidden" title="Manage users">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+          Users
+        </button>
+        <button id="logout-btn" class="btn btn-ghost btn-sm" title="Sign out">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/>
+          </svg>
+          Sign Out
+        </button>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main class="main">
+
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <div class="breadcrumb" id="breadcrumb">
+          <span class="breadcrumb-item breadcrumb-root" data-path="">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            </svg>
+            Root
+          </span>
+        </div>
+        <div class="toolbar-actions">
+          <button id="btn-upload" class="btn btn-primary btn-sm">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+            </svg>
+            Upload
+          </button>
+          <button id="btn-mkdir" class="btn btn-secondary btn-sm">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+            Folder
+          </button>
+        </div>
+      </div>
+
+      <!-- File list -->
+      <div class="file-panel">
+        <div class="file-table-header">
+          <div class="col-name">Name</div>
+          <div class="col-size">Size</div>
+          <div class="col-modified">Modified</div>
+          <div class="col-actions">Actions</div>
+        </div>
+        <div id="file-list" class="file-list">
+          <!-- populated by JS -->
+        </div>
+        <div id="empty-state" class="empty-state hidden">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+          </svg>
+          <p>This folder is empty</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ═════════════════════════════ MODALS ══════════════════════════════════ -->
+
+  <!-- Upload modal -->
+  <div id="modal-upload" class="modal-backdrop hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Upload File</h2>
+        <button class="modal-close" data-close="modal-upload">&times;</button>
+      </div>
+      <div class="modal-body">
+        <label class="upload-area" id="upload-label" for="upload-input">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+          </svg>
+          <span id="upload-label-text">Choose files or drag them here</span>
+          <input type="file" id="upload-input" class="hidden" multiple />
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" data-close="modal-upload">Cancel</button>
+        <button id="btn-upload-confirm" class="btn btn-primary">Upload</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mkdir modal -->
+  <div id="modal-mkdir" class="modal-backdrop hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Create Folder</h2>
+        <button class="modal-close" data-close="modal-mkdir">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="field-group">
+          <label class="field-label" for="mkdir-name">Folder name</label>
+          <input id="mkdir-name" class="field-input" type="text" placeholder="New folder" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" data-close="modal-mkdir">Cancel</button>
+        <button id="btn-mkdir-confirm" class="btn btn-primary">Create</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rename modal -->
+  <div id="modal-rename" class="modal-backdrop hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Rename</h2>
+        <button class="modal-close" data-close="modal-rename">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="field-group">
+          <label class="field-label" for="rename-input">New name</label>
+          <input id="rename-input" class="field-input" type="text" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" data-close="modal-rename">Cancel</button>
+        <button id="btn-rename-confirm" class="btn btn-primary">Rename</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete confirm modal -->
+  <div id="modal-delete" class="modal-backdrop hidden">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h2 class="modal-title">Confirm Delete</h2>
+        <button class="modal-close" data-close="modal-delete">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="delete-message">Delete <strong id="delete-name"></strong>?</p>
+        <p class="delete-hint">This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" data-close="modal-delete">Cancel</button>
+        <button id="btn-delete-confirm" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin / Users modal -->
+  <div id="modal-users" class="modal-backdrop hidden">
+    <div class="modal modal-lg">
+      <div class="modal-header">
+        <h2 class="modal-title">User Management</h2>
+        <button class="modal-close" data-close="modal-users">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="users-add-form">
+          <input id="new-username" class="field-input" type="text" placeholder="Username" />
+          <input id="new-password" class="field-input" type="password" placeholder="Password" />
+          <button id="btn-create-user" class="btn btn-primary btn-sm">Add</button>
+        </div>
+        <div id="users-list" class="users-list">
+          <!-- populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

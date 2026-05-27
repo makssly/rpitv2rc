@@ -3,7 +3,7 @@
 Raspberry Pi 4 + Docker Compose
 
 ## как работает
-* **Backend:** Nginx + File Browser (веб-интерфейс)
+* **Backend:** Nginx + Video Manager (Python + FastAPI)
 * **Client:** cron-скрипт каждые 2 минуты проверяет SHA-256 файлов на сервере и синхронизирует кэш. Плеер `cvlc` крутит плейлист по кругу, воспроизведение локальное, отвал сервера телек не гасит. 
 
 ---
@@ -19,7 +19,7 @@ Raspberry Pi 4 + Docker Compose
    ```bash
    chmod +x generate_manifest.sh
    ```
-3. Очистить ./data/media
+3. Очистить ./data/files
 4. ```bash
     docker compose up -d --build
     ```
@@ -47,6 +47,9 @@ Raspberry Pi 4 + Docker Compose
 - [x] (пока) не воспроизводит 4К видео
 
 UPD. И не будет. 4К ведет себя крайне нестабильно и тормозит. Захардкодил принудительный даунскейл в 1080.
-- [ ] Нормальная админка
+- [x] Нормальная админка
 - [ ] Телеметрия с девайса в админку
+
+### Changelog
++ New video manager. Simple, stylish and blazing fast!
 

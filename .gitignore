@@ -1,7 +1,15 @@
 init-hostname.sh
 *.mp4
 notes
-*.py
+stream_test.py
 *.pyc
 signage-feeder.service
 signage-player.service
+.env
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+*.egg-info/
+.venv/
+sync.sh
